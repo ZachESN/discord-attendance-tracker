@@ -31,8 +31,8 @@ func main() {
 	dg.AddHandler(onGuildScheduledEventCreate)
 	dg.AddHandler(onGuildScheduledEventUpdate)
 	dg.AddHandler(onGuildScheduledEventDelete)
-	dg.AddHandler(onGuildScheduledUserAdd)
-	dg.AddHandler(onGuildScheduledUserRemove)
+	dg.AddHandler(onGuildScheduledEventUserAdd)
+	dg.AddHandler(onGuildScheduledEventUserRemove)
 
 	err = dg.Open()
 	if err != nil {
@@ -46,4 +46,28 @@ func main() {
 
 func onReady(s *discordgo.Session, event *discordgo.Ready) {
 	log.Printf("Logged in as: %v#%v", s.State.User.Username, s.State.User.Discriminator)
+}
+
+func onVoiceStateUpdate(s *discordgo.Session, event *discordgo.VoiceStateUpdate) {
+	log.Printf("Voice state updated for user %v in guild %v", event.UserID, event.GuildID)
+}
+
+func onGuildScheduledEventCreate(s *discordgo.Session, event *discordgo.GuildScheduledEventCreate) {
+	log.Printf("Scheduled event created: %v in guild %v", event.GuildScheduledEvent.Name, event.GuildID)
+}
+
+func onGuildScheduledEventUpdate(s *discordgo.Session, event *discordgo.GuildScheduledEventUpdate) {
+	log.Printf("Scheduled event updated: %v in guild %v", event.GuildScheduledEvent.Name, event.GuildID)
+}
+
+func onGuildScheduledEventDelete(s *discordgo.Session, event *discordgo.GuildScheduledEventDelete) {
+	log.Printf("Scheduled event deleted: %v in guild %v", event.GuildScheduledEvent.Name, event.GuildID)
+}
+
+func onGuildScheduledEventUserAdd(s *discordgo.Session, event *discordgo.GuildScheduledEventUserAdd) {
+	log.Printf("User %v added to scheduled event %v in guild %v", event.UserID, event.GuildScheduledEventID, event.GuildID)
+}
+
+func onGuildScheduledEventUserRemove(s *discordgo.Session, event *discordgo.GuildScheduledEventUserRemove) {
+	log.Printf("User %v removed from scheduled event %v in guild %v", event.UserID, event.GuildScheduledEventID, event.GuildID)
 }
