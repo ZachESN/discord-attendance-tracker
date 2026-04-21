@@ -55,6 +55,19 @@ func onReady(s *discordgo.Session, event *discordgo.Ready) {
 
 func onVoiceStateUpdate(s *discordgo.Session, event *discordgo.VoiceStateUpdate) {
 	log.Printf("Voice state updated for user %v in guild %v", event.UserID, event.GuildID)
+
+	log.Printf("VOICE_STATE_UPDATE: DisplayName=%v, Username=%v, UserID=%v, ChannelID=%v, SessionID=%v, Deaf=%v, Mute=%v, SelfDeaf=%v, SelfMute=%v",
+		event.Member.User.DisplayName,
+		event.Member.User.Username,
+		event.UserID,
+		event.ChannelID,
+		event.SessionID,
+		event.Deaf,
+		event.Mute,
+		event.SelfDeaf,
+		event.SelfMute,
+	)
+
 }
 
 func onGuildScheduledEventCreate(s *discordgo.Session, event *discordgo.GuildScheduledEventCreate) {
