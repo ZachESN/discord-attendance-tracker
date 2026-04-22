@@ -1,5 +1,8 @@
 package storage
 
+// This should only contain the database connection and schema initialization logic.
+// All database queries should be implemented in separate files
+
 import (
 	"fmt"
 	// "os"
@@ -21,6 +24,11 @@ func Open(path string) (*DB, error) {
 func (db *DB) Close() error {
 	fmt.Printf("Closing database connection\n")
 	return nil // Change this to close the actual database connection
+}
+
+func (db *DB) Conn() error {
+	// Connect to the database and return an error if it fails
+	return nil
 }
 
 func (db *DB) initSchema() error {
